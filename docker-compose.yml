@@ -5,3 +5,7 @@ services:
     build: RecWalletBackend
     ports:
       - 8080:8080
+  database:
+    build: Database
+    ports:
+      - 5432:5432
