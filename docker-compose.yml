@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  rec-wallet-backend:
+    build: RecWalletBackend
+    ports:
+      - 8080:8080
