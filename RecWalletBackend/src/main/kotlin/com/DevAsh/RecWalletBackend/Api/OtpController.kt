@@ -15,7 +15,7 @@ class OtpController{
     @Autowired
     final var otpService:OtpService?=null
 
-    @GetMapping("/pay/getOtp{number}")
+    @GetMapping("/pay/getOtp/{number}")
     fun getPayOtp(@PathVariable number: String,httpServletResponse: HttpServletResponse){
 
         val isOtpSend:Boolean? = otpService?.sendOtp(
