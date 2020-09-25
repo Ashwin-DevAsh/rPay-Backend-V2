@@ -15,7 +15,7 @@ class OtpController{
     @Autowired
     final var otpService:OtpService?=null
 
-    @GetMapping("/pay/getOtp/{number}")
+    @GetMapping(/{number}")
     fun getPayOtp(@PathVariable number: String,httpServletResponse: HttpServletResponse){
 
         val isOtpSend:Boolean? = otpService?.sendOtp(
@@ -49,7 +49,7 @@ class OtpController{
         }
     }
 
-    @PostMapping("/pay/verifyOtp/")
+    @PostMapping("/pay/verifyOtp")
     fun verifyPayOtp(
             @RequestBody otpObject:OtpObject,
             httpServletResponse: HttpServletResponse
@@ -58,7 +58,12 @@ class OtpController{
         val number = otpObject.number
         val otp = otpObject.otp
 
-        if (otpService!!.verifyOtp("rPay@${number}",number,otp,OtpTypes.rPayVerification)){
+        if (otpService!!.verifyOtp(
+                        "rPay@${number}",
+                        number,
+                        otp,
+                        OtpTypes.rPayVerification)
+        ){
             httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
         }else{
             httpServletResponse.status=HttpServletResponse.SC_FORBIDDEN
