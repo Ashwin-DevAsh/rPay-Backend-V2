@@ -42,5 +42,9 @@ open class PayAccount {
         this.password = password
     }
 
+    override fun toString(): String {
+        return "PayAccount(id=$id, userName=$userName, phoneNumber=$phoneNumber, email=$email, fcmToken=$fcmToken, password=$password, bankAccountList=$bankAccountList, balance=$balance)"
+    }
+
 
 }

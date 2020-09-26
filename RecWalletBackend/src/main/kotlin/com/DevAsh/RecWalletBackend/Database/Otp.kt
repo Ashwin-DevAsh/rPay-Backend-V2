@@ -27,4 +27,10 @@ class Otp {
         this.type = type
         this.isVerified = isVerified
     }
+
+    override fun toString(): String {
+        return "Otp(accountId=$accountId, otp=$otp, number=$number, type=$type, isVerified=$isVerified)"
+    }
+
+
 }

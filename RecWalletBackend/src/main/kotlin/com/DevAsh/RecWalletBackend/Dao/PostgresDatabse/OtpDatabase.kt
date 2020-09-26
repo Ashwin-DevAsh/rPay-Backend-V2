@@ -77,7 +77,11 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
 
     override fun isVerified(id: String): Boolean {
         val otp =  entityManager!!.find(Otp::class.java,id)
+        println(otp)
         return otp?.isVerified ?: false
     }
+
+
+
 
 }

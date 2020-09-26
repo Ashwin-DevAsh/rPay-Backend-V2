@@ -27,8 +27,9 @@ class AccountController(private final var accountService: AccountService){
     fun addPayAccount(@RequestBody accountDetails: AccountDetails,httpServletResponse: HttpServletResponse):AccountDetailsResponse?{
 
         println(accountDetails)
-
-        return if(accountService.addPayAccount(accountDetails.toPayAccount())){
+        val payAccount = accountDetails.toPayAccount()
+        println(payAccount)
+        return if(accountService.addPayAccount(payAccount)){
             httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
             val jwtToken = ""
             AccountDetailsResponse.fromAccountDetails(accountDetails,jwtToken)
