@@ -2,8 +2,17 @@ package com.DevAsh.RecWalletBackend.Api.Response
 
 import com.DevAsh.RecWalletBackend.Api.Request.AccountDetails
 import com.DevAsh.RecWalletBackend.Database.PayAccount
+import com.DevAsh.RecWalletBackend.Database.Transactions.Transaction
+import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
+import com.DevAsh.RecWalletBackend.RecWalletBackendApplication
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.stereotype.Component
+import javax.persistence.EntityManager
+import javax.persistence.EntityManagerFactory
+import javax.persistence.PersistenceContext
 
-class AccountDetailsResponse(
+class AccountDetailsResponse (
         name: String?,
         phoneNumber: String?,
         email: String?,
@@ -11,7 +20,9 @@ class AccountDetailsResponse(
         fcmToken: String?,
         qr: String?,
         storeName: String?,
-        var jwtToken: String?
+        var jwtToken: String?,
+        var bankAccount: List<BankAccount>,
+        var transaction: List<Transaction>
 ) : AccountDetails(
         name,
         phoneNumber,
@@ -23,6 +34,8 @@ class AccountDetailsResponse(
 ) {
 
     companion object{
+
+
         fun fromAccountDetails(accountDetails: AccountDetails,jwtToken: String?):AccountDetailsResponse{
             return AccountDetailsResponse(
                     name = accountDetails.name,
@@ -32,12 +45,23 @@ class AccountDetailsResponse(
                     qr=null,
                     storeName = null,
                     jwtToken = jwtToken,
-                    fcmToken = null
+                    fcmToken = null,
+                    bankAccount = arrayListOf(),
+                    transaction = arrayListOf()
             )
         }
 
 
         fun fromPayAccount(payAccount: PayAccount,jwtToken: String?):AccountDetailsResponse{
+
+
+            val entityManager = RecWalletBackendApplication.entityManagerFactory?.createEntityManager()
+            val transactions = entityManager!!
+                    .createNamedQuery("getTransactionsByUserID",Transaction::class.java)
+                    .setParameter("id",payAccount.id)
+                    .resultList
+
+
             return AccountDetailsResponse(
                     name = payAccount.userName,
                     phoneNumber = payAccount.phoneNumber,
@@ -46,7 +70,9 @@ class AccountDetailsResponse(
                     qr=null,
                     storeName = null,
                     jwtToken = jwtToken,
-                    fcmToken = null
+                    fcmToken = null,
+                    bankAccount = payAccount.bankAccountList,
+                    transaction = transactions
             )
         }
     }
