@@ -1,10 +1,7 @@
 package com.DevAsh.RecWalletBackend.Dao.PostgresDatabse
 
-import com.DevAsh.RecWalletBackend.Dao.AccountDao
 import com.DevAsh.RecWalletBackend.Dao.OtpDao
-import com.DevAsh.RecWalletBackend.Database.BusinessAccount
 import com.DevAsh.RecWalletBackend.Database.Otp
-import com.DevAsh.RecWalletBackend.Database.PayAccount
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
@@ -39,8 +36,6 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
             entityManager!!.transaction.rollback()
             return false
         }
-
-
     }
 
     override fun verifyOtp(id: String, otp: String, type: String): Boolean {
@@ -49,7 +44,6 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
             if(otpObject?.otp==otp){
                 entityManager!!.transaction.begin()
                 otpObject.isVerified=true
-                entityManager!!.persist(otpObject)
                 entityManager!!.transaction.commit()
                 return true
             }

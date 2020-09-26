@@ -12,8 +12,6 @@ class AccountService(
         @Qualifier("AccountDatabase") private final val accountDao: AccountDao,
         @Qualifier("OtpDatabase") private final val otpDao: OtpDao
 ){
-
-
     fun isPayAccountExist(id:String):PayAccount?{
 
         val payAccount = accountDao.isPayAccountExist(id)
@@ -32,6 +30,7 @@ class AccountService(
             if(otpDao.isVerified(payAccount.id!!)){
                 otpDao.deleteOtp(payAccount.id!!)
                 accountDao.addNewPayAccount(payAccount)
+                true
             }else{
                 println("otp not verified")
                 false
