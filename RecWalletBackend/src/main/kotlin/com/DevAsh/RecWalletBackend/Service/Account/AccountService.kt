@@ -17,7 +17,9 @@ class AccountService(
     fun isPayAccountExist(id:String):PayAccount?{
 
         val payAccount = accountDao.isPayAccountExist(id)
+        println(payAccount)
         return if(otpDao.isVerified(id) && payAccount!=null){
+            println("Deleting otp....")
             otpDao.deleteOtp(id)
             payAccount
         }else{
