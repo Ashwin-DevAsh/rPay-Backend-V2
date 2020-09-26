@@ -35,6 +35,7 @@ class OtpController{
     @GetMapping("/business/getOtp/{number}")
     fun getBusinessOtp(@PathVariable number: String,httpServletResponse: HttpServletResponse){
 
+
         val isOtpSend:Boolean? = otpService?.sendOtp(
                 "rBusiness@$number",
                 number,
@@ -55,6 +56,8 @@ class OtpController{
             httpServletResponse: HttpServletResponse
     ) {
 
+        println(otpObject)
+
         val number = otpObject.number
         val otp = otpObject.otp
 
@@ -64,6 +67,24 @@ class OtpController{
             httpServletResponse.status=HttpServletResponse.SC_FORBIDDEN
         }
     }
+
+    @PostMapping("/business/verifyOtp/")
+    fun verifyBusinessOtp(
+            @RequestBody otpObject:OtpObject,
+            httpServletResponse: HttpServletResponse
+    ) {
+        println(otpObject)
+        val number = otpObject.number
+        val otp = otpObject.otp
+        if (otpService!!.verifyOtp("rBusiness@${number}",number,otp,OtpTypes.rPayVerification)){
+            httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
+        }else{
+            httpServletResponse.status=HttpServletResponse.SC_FORBIDDEN
+        }
+    }
+
+
+
 
 
 }
