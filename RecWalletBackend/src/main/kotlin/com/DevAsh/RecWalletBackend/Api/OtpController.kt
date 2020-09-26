@@ -1,5 +1,6 @@
 package com.DevAsh.RecWalletBackend.Api
 
+import com.DevAsh.RecWalletBackend.Api.Request.OtpDetails
 import com.DevAsh.RecWalletBackend.Service.Otp.Manager.OtpTypes
 import com.DevAsh.RecWalletBackend.Service.Otp.OtpService
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -47,16 +48,16 @@ class OtpController{
         }
     }
 
-    @PostMapping("/pay/verifyOtp/")
+    @PostMapping("/pay/verifyOtp")
     fun verifyPayOtp(
-            @RequestBody otpObject:OtpObject,
+            @RequestBody otpDetails: OtpDetails,
             httpServletResponse: HttpServletResponse
     ) {
 
-        println(otpObject)
+        println(otpDetails)
 
-        val number = otpObject.number
-        val otp = otpObject.otp
+        val number = otpDetails.number
+        val otp = otpDetails.otp
 
         if (otpService!!.verifyOtp("rPay@${number}",number,otp,OtpTypes.rPayVerification)){
             httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
@@ -65,14 +66,14 @@ class OtpController{
         }
     }
 
-    @PostMapping("/business/verifyOtp/")
+    @PostMapping("/business/verifyOtp")
     fun verifyBusinessOtp(
-            @RequestBody otpObject:OtpObject,
+            @RequestBody otpDetails:OtpDetails,
             httpServletResponse: HttpServletResponse
     ) {
-        println(otpObject)
-        val number = otpObject.number
-        val otp = otpObject.otp
+        println(otpDetails)
+        val number = otpDetails.number
+        val otp = otpDetails.otp
         if (otpService!!.verifyOtp("rBusiness@${number}",number,otp,OtpTypes.rPayVerification)){
             httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
         }else{
@@ -80,6 +81,5 @@ class OtpController{
         }
     }
 }
-class OtpObject(@JsonProperty("number") val number: String, @JsonProperty("otp") val otp: String)
 
 

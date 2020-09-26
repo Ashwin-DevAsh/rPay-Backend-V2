@@ -1,16 +1,16 @@
-package com.DevAsh.RecWalletBackend.Dao
+package com.DevAsh.RecWalletBackend.Dao.PostgresDatabse
 
+import com.DevAsh.RecWalletBackend.Dao.AccountDao
+import com.DevAsh.RecWalletBackend.Dao.OtpDao
+import com.DevAsh.RecWalletBackend.Database.BusinessAccount
 import com.DevAsh.RecWalletBackend.Database.Otp
-import org.springframework.beans.factory.annotation.Autowired
+import com.DevAsh.RecWalletBackend.Database.PayAccount
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
 
-@Repository("postgres")
-class PostgresDatabase(
-        private final val entityManagerFactory: EntityManagerFactory
-) :OtpDao{
-
+@Repository("OtpDatabase")
+class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpDao {
 
     private final var entityManager:EntityManager?=null
 
@@ -18,11 +18,9 @@ class PostgresDatabase(
         this.entityManager=entityManagerFactory.createEntityManager()
     }
 
-
-
     override fun insertOtp(id: String, number: String, otp: String, type: String): Boolean {
         try {
-            val otp:Otp?= Otp(
+            val otpObject:Otp?= Otp(
                     accountId = id,
                     number = number,
                     otp = otp,
@@ -33,7 +31,7 @@ class PostgresDatabase(
                 return false
             }
             entityManager!!.transaction.begin()
-            entityManager!!.persist(otp)
+            entityManager!!.persist(otpObject)
             entityManager!!.transaction.commit()
             return true
         }catch (e:Throwable){
@@ -77,5 +75,9 @@ class PostgresDatabase(
         }
     }
 
+    override fun isVerified(id: String): Boolean {
+        val otp =  entityManager!!.find(Otp::class.java,id)
+        return otp?.isVerified ?: false
+    }
 
 }

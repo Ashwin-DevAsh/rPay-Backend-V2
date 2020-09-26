@@ -1,6 +1,8 @@
 package com.DevAsh.RecWalletBackend.Database
 
 import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
+import com.fasterxml.jackson.annotation.JsonIgnoreType
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.persistence.*
 
 @Entity
@@ -19,17 +21,22 @@ open class PayAccount {
     @Column(unique = true, nullable = true)
     var fcmToken: String? = null
 
+    var password:String?=null
+
     @OneToMany
     var bankAccountList: List<BankAccount>? = null
 
     var balance:Number=0;
 
     constructor() {}
-    constructor(id: String?, userName: String?, phoneNumber: String?, email: String?, fcmToken: String?) {
+    constructor(id: String?, userName: String?, phoneNumber: String?, email: String?, fcmToken: String?, password: String?) {
         this.id = id
         this.userName = userName
         this.phoneNumber = phoneNumber
         this.email = email
         this.fcmToken = fcmToken
+        this.password = password
     }
+
+
 }

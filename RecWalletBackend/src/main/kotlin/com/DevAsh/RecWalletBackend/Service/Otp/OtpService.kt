@@ -10,7 +10,7 @@ import kotlin.random.Random
 @Service
 class OtpService(
         @Qualifier("clickSend") final val otpManager: OtpManager,
-        @Qualifier("postgres") final val otpDao: OtpDao
+        @Qualifier("OtpDatabase") final val otpDao: OtpDao
 ) {
 
 
