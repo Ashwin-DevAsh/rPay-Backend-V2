@@ -2,6 +2,7 @@ package com.DevAsh.RecWalletBackend.Api
 
 import com.DevAsh.RecWalletBackend.Service.Otp.Manager.OtpTypes
 import com.DevAsh.RecWalletBackend.Service.Otp.OtpService
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
@@ -50,7 +51,7 @@ class OtpController{
 
     @PostMapping("/pay/verifyOtp/")
     fun verifyPayOtp(
-            otpObject:OtpObject,
+            @RequestBody otpObject:OtpObject,
             httpServletResponse: HttpServletResponse
     ) {
 
@@ -81,6 +82,6 @@ class OtpController{
         }
     }
 }
-class OtpObject(val number: String,val otp: String)
+class OtpObject(@JsonProperty("number") val number: String, @JsonProperty("otp") val otp: String)
 
 
