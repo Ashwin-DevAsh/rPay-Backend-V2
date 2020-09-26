@@ -49,6 +49,7 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
             if(otpObject?.otp==otp){
                 entityManager!!.transaction.begin()
                 otpObject.isVerified=true
+                entityManager!!.persist(otpObject)
                 entityManager!!.transaction.commit()
                 return true
             }
