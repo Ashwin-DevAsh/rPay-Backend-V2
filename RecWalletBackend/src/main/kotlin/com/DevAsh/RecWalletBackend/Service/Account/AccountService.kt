@@ -31,6 +31,7 @@ class AccountService(
                 otpDao.deleteOtp(payAccount.id!!)
                 accountDao.addNewPayAccount(payAccount)
             }else{
+                println("otp not verified")
                 false
             }
         }catch (e:Throwable){

@@ -5,12 +5,7 @@ import com.DevAsh.RecWalletBackend.Database.PayAccount
 import com.DevAsh.RecWalletBackend.Database.Transactions.Transaction
 import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
 import com.DevAsh.RecWalletBackend.RecWalletBackendApplication
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.stereotype.Component
-import javax.persistence.EntityManager
-import javax.persistence.EntityManagerFactory
-import javax.persistence.PersistenceContext
+
 
 class AccountDetailsResponse (
         name: String?,
