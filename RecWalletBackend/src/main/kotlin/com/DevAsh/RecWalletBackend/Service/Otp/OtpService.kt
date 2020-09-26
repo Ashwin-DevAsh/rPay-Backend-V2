@@ -16,6 +16,7 @@ class OtpService(
 
     fun sendOtp(id: String,number:String,type:String,appId:String):Boolean?{
         val otp = Random.nextInt(1000,9999)
+        println(otp)
         if(!otpDao.insertOtp(
                 id=id,
                 number = number,

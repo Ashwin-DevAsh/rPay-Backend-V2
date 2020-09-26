@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
-import javax.websocket.server.PathParam
-import kotlin.random.Random
+
 
 @RestController
 @RequestMapping("/api/v1/otp")
@@ -18,7 +17,6 @@ class OtpController{
 
     @GetMapping("/pay/getOtp/{number}")
     fun getPayOtp(@PathVariable number: String,httpServletResponse: HttpServletResponse){
-
         val isOtpSend:Boolean? = otpService?.sendOtp(
                 "rPay@$number",
                 number,
