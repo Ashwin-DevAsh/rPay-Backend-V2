@@ -35,4 +35,10 @@ open class AccountDetails(
                 storeName=storeName
         )
     }
+
+    override fun toString(): String {
+        return "AccountDetails(name=$name, phoneNumber=$phoneNumber, email=$email, password=$password, fcmToken=$fcmToken, qr=$qr, storeName=$storeName)"
+    }
+
+
 }

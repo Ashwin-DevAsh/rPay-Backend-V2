@@ -72,4 +72,9 @@ class AccountDetailsResponse (
         }
     }
 
+    override fun toString(): String {
+        return "AccountDetailsResponse(jwtToken=$jwtToken, bankAccount=$bankAccount, transaction=$transaction)"
+    }
+
+
 }
