@@ -15,9 +15,12 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!
-                .httpBasic().disable()
-                .csrf().disable()
+                .httpBasic()
+                .disable()
+                .csrf()
+                .disable()
                 .antMatcher("/api/v1/account/protected/**")
+                .and()
                 .addFilterBefore(jwtFilter, BasicAuthenticationFilter::class.java)
     }
 }
