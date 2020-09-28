@@ -1,6 +1,6 @@
 package com.DevAsh.RecWalletBackend.Api
 
-import com.DevAsh.RecWalletBackend.Api.Request.AccountDetails
+import com.DevAsh.RecWalletBackend.Api.Request.AccountDetailsRequest
 import com.DevAsh.RecWalletBackend.Api.Response.AccountDetailsResponse
 import com.DevAsh.RecWalletBackend.Service.Account.AccountService
 import org.springframework.web.bind.annotation.*
@@ -24,15 +24,15 @@ class AccountController(private final var accountService: AccountService){
     }
 
     @PostMapping("/pay/addAccount")
-    fun addPayAccount(@RequestBody accountDetails: AccountDetails,httpServletResponse: HttpServletResponse):AccountDetailsResponse?{
+    fun addPayAccount(@RequestBody accountDetailsRequest: AccountDetailsRequest, httpServletResponse: HttpServletResponse):AccountDetailsResponse?{
 
-        println(accountDetails)
-        val payAccount = accountDetails.toPayAccount()
+        println(accountDetailsRequest)
+        val payAccount = accountDetailsRequest.toPayAccount()
         println(payAccount)
         return if(accountService.addPayAccount(payAccount)){
             httpServletResponse.status=HttpServletResponse.SC_ACCEPTED
             val jwtToken = ""
-            AccountDetailsResponse.fromAccountDetails(accountDetails,jwtToken)
+            AccountDetailsResponse.fromAccountDetails(accountDetailsRequest,jwtToken)
         }else{
             httpServletResponse.status = HttpServletResponse.SC_BAD_REQUEST
             null

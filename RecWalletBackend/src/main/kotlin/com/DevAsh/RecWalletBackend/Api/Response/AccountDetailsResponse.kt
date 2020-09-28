@@ -1,6 +1,6 @@
 package com.DevAsh.RecWalletBackend.Api.Response
 
-import com.DevAsh.RecWalletBackend.Api.Request.AccountDetails
+import com.DevAsh.RecWalletBackend.Api.Request.AccountDetailsRequest
 import com.DevAsh.RecWalletBackend.Database.PayAccount
 import com.DevAsh.RecWalletBackend.Database.Transactions.Transaction
 import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
@@ -16,9 +16,10 @@ class AccountDetailsResponse (
         qr: String?,
         storeName: String?,
         var jwtToken: String?,
+        var balance:Number?,
         var bankAccount: List<BankAccount>,
         var transaction: List<Transaction>
-) : AccountDetails(
+) : AccountDetailsRequest(
         name,
         phoneNumber,
         email,
@@ -31,13 +32,14 @@ class AccountDetailsResponse (
     companion object{
 
 
-        fun fromAccountDetails(accountDetails: AccountDetails,jwtToken: String?):AccountDetailsResponse{
+        fun fromAccountDetails(accountDetailsRequest: AccountDetailsRequest, jwtToken: String?):AccountDetailsResponse{
             return AccountDetailsResponse(
-                    name = accountDetails.name,
-                    phoneNumber = accountDetails.phoneNumber,
-                    email = accountDetails.email,
-                    password = accountDetails.password,
+                    name = accountDetailsRequest.name,
+                    phoneNumber = accountDetailsRequest.phoneNumber,
+                    email = accountDetailsRequest.email,
+                    password = accountDetailsRequest.password,
                     qr=null,
+                    balance = 0,
                     storeName = null,
                     jwtToken = jwtToken,
                     fcmToken = null,
@@ -61,6 +63,7 @@ class AccountDetailsResponse (
                     name = payAccount.userName,
                     phoneNumber = payAccount.phoneNumber,
                     email = payAccount.email,
+                    balance = payAccount.balance,
                     password = payAccount.password,
                     qr=null,
                     storeName = null,

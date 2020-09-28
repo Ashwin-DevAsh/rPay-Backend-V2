@@ -3,7 +3,7 @@ package com.DevAsh.RecWalletBackend.Api.Request
 import com.DevAsh.RecWalletBackend.Database.BusinessAccount
 import com.DevAsh.RecWalletBackend.Database.PayAccount
 
-open class AccountDetails(
+open class AccountDetailsRequest(
         var name: String?,
         var phoneNumber: String?,
         var email: String?,
