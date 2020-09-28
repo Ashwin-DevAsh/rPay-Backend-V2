@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 @Configuration
-class SecurityConfig: WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
     lateinit var jwtFilter: JwtFilter
@@ -17,7 +17,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
         http!!
                 .httpBasic().disable()
                 .csrf().disable()
-                .antMatcher("/api/v1/account/protected/**")
-                .addFilterBefore(jwtFilter,BasicAuthenticationFilter::class.java)
+                .antMatcher("/api/v1/account/protected/*")
+                .addFilterBefore(jwtFilter, BasicAuthenticationFilter::class.java)
     }
 }
