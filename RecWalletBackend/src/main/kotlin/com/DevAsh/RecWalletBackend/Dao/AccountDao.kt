@@ -8,4 +8,5 @@ interface AccountDao {
     fun isBusinessAccountExist(id:String):BusinessAccount?
     fun addNewPayAccount(payAccount: PayAccount): Boolean
     fun addNewBusinessAccount(businessAccount: BusinessAccount): Boolean
+    fun getPayAccounts():List<PayAccount>
 }

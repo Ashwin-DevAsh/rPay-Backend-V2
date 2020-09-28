@@ -1,6 +1,7 @@
 package com.DevAsh.RecWalletBackend.Database
 
 import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonIgnoreType
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -8,6 +9,7 @@ import javax.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQuery(name = "getPayAccounts",query= "select account from PayAccount account")
 open class PayAccount {
     @Id
     var id: String? = null
@@ -26,6 +28,7 @@ open class PayAccount {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password:String?=null
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany
     var bankAccountList: List<BankAccount> = arrayListOf()
 
@@ -41,6 +44,8 @@ open class PayAccount {
         this.fcmToken = fcmToken
         this.password = password
     }
+
+
 
     override fun toString(): String {
         return "PayAccount(id=$id, userName=$userName, phoneNumber=$phoneNumber, email=$email, fcmToken=$fcmToken, password=$password, bankAccountList=$bankAccountList, balance=$balance)"

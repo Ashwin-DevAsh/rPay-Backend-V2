@@ -15,6 +15,7 @@ class AccountDetailsResponse (
         fcmToken: String?,
         qr: String?,
         storeName: String?,
+        var id:String?,
         var jwtToken: String?,
         var balance:Number?,
         var bankAccount: List<BankAccount>,
@@ -30,9 +31,11 @@ class AccountDetailsResponse (
 ) {
 
     companion object{
-
-
-        fun fromAccountDetails(accountDetailsRequest: AccountDetailsRequest, jwtToken: String?):AccountDetailsResponse{
+        fun fromAccountDetails(
+                accountDetailsRequest: AccountDetailsRequest,
+                jwtToken: String?,
+                id:String
+        ):AccountDetailsResponse{
             return AccountDetailsResponse(
                     name = accountDetailsRequest.name,
                     phoneNumber = accountDetailsRequest.phoneNumber,
@@ -40,6 +43,7 @@ class AccountDetailsResponse (
                     password = accountDetailsRequest.password,
                     qr=null,
                     balance = 0,
+                    id = id,
                     storeName = null,
                     jwtToken = jwtToken,
                     fcmToken = null,
@@ -64,6 +68,7 @@ class AccountDetailsResponse (
                     phoneNumber = payAccount.phoneNumber,
                     email = payAccount.email,
                     balance = payAccount.balance,
+                    id = payAccount.id,
                     password = payAccount.password,
                     qr=null,
                     storeName = null,

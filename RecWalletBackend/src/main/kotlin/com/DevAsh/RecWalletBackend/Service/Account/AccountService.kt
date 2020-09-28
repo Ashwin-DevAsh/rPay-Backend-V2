@@ -12,17 +12,25 @@ class AccountService(
         @Qualifier("AccountDatabase") private final val accountDao: AccountDao,
         @Qualifier("OtpDatabase") private final val otpDao: OtpDao
 ){
-    fun isPayAccountExist(id:String):PayAccount?{
 
+
+    fun isPayAccountExist(id:String):PayAccount?{
         val payAccount = accountDao.isPayAccountExist(id)
         println(payAccount)
         return if(otpDao.isVerified(id) && payAccount!=null){
-            println("Deleting otp....")
             otpDao.deleteOtp(id)
             payAccount
         }else{
             null
         }
+    }
+
+    fun getMyAccount(id: String):PayAccount?{
+        return  accountDao.isPayAccountExist(id)
+    }
+
+    fun getPayAccounts():List<PayAccount>{
+        return accountDao.getPayAccounts()
     }
 
     fun addPayAccount(payAccount: PayAccount):Boolean{
@@ -32,7 +40,6 @@ class AccountService(
                 accountDao.addNewPayAccount(payAccount)
                 true
             }else{
-                println("otp not verified")
                 false
             }
         }catch (e:Throwable){

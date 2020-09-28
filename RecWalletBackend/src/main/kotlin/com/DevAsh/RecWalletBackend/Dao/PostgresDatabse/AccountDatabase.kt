@@ -53,4 +53,8 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
         }
 
     }
+
+    override fun getPayAccounts(): List<PayAccount> {
+     return entityManager!!.createNamedQuery("getPayAccounts",PayAccount::class.java).resultList
+    }
 }
