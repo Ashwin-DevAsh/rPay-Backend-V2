@@ -17,7 +17,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
         http!!
                 .httpBasic().disable()
                 .csrf().disable()
-                .antMatcher("/api/v1/*/protected/**")
+                .antMatcher("/api/v1/account/protected/**")
                 .addFilterBefore(jwtFilter,BasicAuthenticationFilter::class.java)
     }
 }
