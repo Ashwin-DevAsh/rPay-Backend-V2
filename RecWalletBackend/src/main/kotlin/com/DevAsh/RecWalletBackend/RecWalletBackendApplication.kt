@@ -3,6 +3,7 @@ package com.DevAsh.RecWalletBackend
 import com.DevAsh.RecWalletBackend.Api.Response.AccountDetailsResponse
 import com.DevAsh.RecWalletBackend.Database.PayAccount
 import com.DevAsh.RecWalletBackend.Database.Transactions.FromType
+import com.DevAsh.RecWalletBackend.Security.filters.JwtFilter
 import com.DevAsh.RecWalletBackend.Service.Otp.OtpService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -20,5 +21,4 @@ class RecWalletBackendApplication{
 fun main(args: Array<String>) {
 	val context = runApplication<RecWalletBackendApplication>(*args)
 	RecWalletBackendApplication.entityManagerFactory = context.getBean(EntityManagerFactory::class.java)
-	AccountDetailsResponse.fromPayAccount(PayAccount(),"")
 }
