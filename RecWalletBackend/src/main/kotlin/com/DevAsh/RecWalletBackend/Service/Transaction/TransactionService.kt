@@ -23,6 +23,7 @@ class TransactionService(
 
 
     fun addMoney(id:String,addMoneyDetails: AddMoneyDetails):Transaction?{
+        println(addMoneyDetails)
         entityManager.transaction.begin()
         try {
             val account:Any?
@@ -41,11 +42,12 @@ class TransactionService(
             ))
             if (transaction==null){
                 entityManager.transaction.rollback()
-                return null
+                throw Exception("Null Transaction")
             }
             entityManager.transaction.commit()
             return transaction
         }catch (e:Throwable){
+            e.printStackTrace()
             entityManager.transaction.rollback()
             return null
         }
