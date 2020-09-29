@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
@@ -68,6 +69,16 @@ class AccountController(private final var accountService: AccountService){
                 .signWith(SignatureAlgorithm.HS256,secretKey.toByteArray())
                 .setClaims(mapOf("id" to id))
                 .compact()
+    }
+
+    @GetMapping("/protected/pay/GetMyAccount")
+    fun getMyAccount(response: HttpServletResponse,request: HttpServletRequest):AccountDetailsResponse{
+        val header = request.getHeader("token")
+        return AccountDetailsResponse.fromPayAccount(accountService.getMyAccount(getId(header))!!,header)
+    }
+
+    fun getId(header: String):String{
+        return Jwts.parser().setSigningKey(secretKey.toByteArray()).parseClaimsJws(header).body["id"] as String;
     }
 
 }
