@@ -20,7 +20,7 @@ class Transaction {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    var id: Number?=null;
+    var id: Int?=null;
     @OneToOne
     var from: FromType?=null;
     @OneToOne
