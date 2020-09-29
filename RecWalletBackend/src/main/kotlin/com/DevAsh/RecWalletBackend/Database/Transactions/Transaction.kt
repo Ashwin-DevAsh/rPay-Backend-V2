@@ -1,5 +1,6 @@
 package com.DevAsh.RecWalletBackend.Database.Transactions
 
+import jdk.jfr.DataAmount
 import java.sql.Timestamp
 import javax.persistence.*
 
@@ -10,11 +11,10 @@ import javax.persistence.*
 )
 class Transaction {
     constructor()
-    constructor(from: FromType?, to: ToType?, timestamp: Timestamp, type: String?, message: String?) {
+    constructor(from: FromType?, to: ToType?, amount: Number,message: String?) {
         this.from = from
         this.to = to
-        this.timestamp = timestamp
-        this.type = type
+        this.amount = amount
         this.message = message
     }
 
@@ -25,8 +25,8 @@ class Transaction {
     var from: FromType?=null;
     @OneToOne
     var to: ToType?=null;
+    var amount:Number?=null;
     var timestamp:Timestamp= Timestamp(System.currentTimeMillis())
-    var type:String?=null
     var message:String?=null;
 
 

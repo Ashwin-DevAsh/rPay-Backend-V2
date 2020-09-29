@@ -16,4 +16,14 @@ class FromType() {
     var externalSource: ExternalSource?=null;
     @ManyToOne
     var businessAccount:BusinessAccount?=null;
+
+    constructor(payAccount: PayAccount?):this() {
+        this.payAccount = payAccount
+    }
+
+    constructor(externalSource: ExternalSource?):this() {
+        this.externalSource = externalSource
+    }
+
+
 }

@@ -9,11 +9,7 @@ import javax.persistence.EntityManagerFactory
 @Repository("OtpDatabase")
 class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpDao {
 
-    private final var entityManager:EntityManager?=null
-
-    init {
-        this.entityManager=entityManagerFactory.createEntityManager()
-    }
+    var entityManager: EntityManager = entityManagerFactory.createEntityManager()
 
     override fun insertOtp(id: String, number: String, otp: String, type: String): Boolean {
         try {
@@ -27,24 +23,24 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
             if(!deleteOtp(id)){
                 return false
             }
-            entityManager!!.transaction.begin()
-            entityManager!!.persist(otpObject)
-            entityManager!!.transaction.commit()
+            entityManager.transaction.begin()
+            entityManager.persist(otpObject)
+            entityManager.transaction.commit()
             return true
         }catch (e:Throwable){
             println(e.printStackTrace())
-            entityManager!!.transaction.rollback()
+            entityManager.transaction.rollback()
             return false
         }
     }
 
     override fun verifyOtp(id: String, otp: String, type: String): Boolean {
         try {
-            val otpObject:Otp? = entityManager!!.find(Otp::class.java,id)
+            val otpObject:Otp? = entityManager.find(Otp::class.java,id)
             if(otpObject?.otp==otp){
-                entityManager!!.transaction.begin()
+                entityManager.transaction.begin()
                 otpObject.isVerified=true
-                entityManager!!.transaction.commit()
+                entityManager.transaction.commit()
                 return true
             }
             return false
@@ -56,22 +52,22 @@ class OtpDatabase(private val entityManagerFactory: EntityManagerFactory) : OtpD
 
     override fun deleteOtp(id: String): Boolean {
         return try {
-            val otp = entityManager?.find(Otp::class.java,id)
+            val otp = entityManager.find(Otp::class.java,id)
             if(otp!=null){
-                entityManager!!.transaction.begin()
-                entityManager!!.remove(otp)
-                entityManager!!.transaction.commit()
+                entityManager.transaction.begin()
+                entityManager.remove(otp)
+                entityManager.transaction.commit()
             }
             true
         }catch (e:Exception){
             e.printStackTrace()
-            entityManager!!.transaction.rollback()
+            entityManager.transaction.rollback()
             false
         }
     }
 
     override fun isVerified(id: String): Boolean {
-        val otp =  entityManager!!.find(Otp::class.java,id)
+        val otp =  entityManager.find(Otp::class.java,id)
         println(otp)
         return otp?.isVerified ?: false
     }

@@ -12,14 +12,10 @@ import javax.persistence.EntityManagerFactory
 @Repository("AccountDatabase")
 class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) :  AccountDao {
 
-    private final var entityManager:EntityManager?=null
-
-    init {
-        this.entityManager=entityManagerFactory.createEntityManager()
-    }
+    var entityManager: EntityManager = entityManagerFactory.createEntityManager()
 
     override fun isPayAccountExist(id: String): PayAccount? {
-        return entityManager!!.find(PayAccount::class.java,id)
+        return entityManager.find(PayAccount::class.java,id)
     }
 
     override fun isBusinessAccountExist(id: String): BusinessAccount? {
@@ -28,13 +24,13 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
 
     override fun addNewPayAccount(payAccount: PayAccount):Boolean {
         return try {
-            entityManager!!.transaction.begin()
-            entityManager!!.persist(payAccount)
-            entityManager!!.transaction.commit()
+            entityManager.transaction.begin()
+            entityManager.persist(payAccount)
+            entityManager.transaction.commit()
             false
         }catch (e:Throwable){
             e.printStackTrace()
-            entityManager!!.transaction.rollback()
+            entityManager.transaction.rollback()
             true
         }
 
@@ -42,19 +38,19 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
 
     override fun addNewBusinessAccount(businessAccount: BusinessAccount):Boolean {
         return try {
-            entityManager!!.transaction.begin()
-            entityManager!!.persist(businessAccount)
-            entityManager!!.transaction.commit()
+            entityManager.transaction.begin()
+            entityManager.persist(businessAccount)
+            entityManager.transaction.commit()
             false
         }catch (e:Throwable){
             e.printStackTrace()
-            entityManager!!.transaction.rollback()
+            entityManager.transaction.rollback()
             true
         }
 
     }
 
     override fun getPayAccounts(): List<PayAccount> {
-     return entityManager!!.createNamedQuery("getPayAccounts",PayAccount::class.java).resultList
+        return entityManager.createNamedQuery("getPayAccounts",PayAccount::class.java).resultList
     }
 }

@@ -6,7 +6,7 @@ import com.DevAsh.RecWalletBackend.Database.Transactions.Types.BankAccount
 import javax.persistence.*
 
 @Entity
-class ToType {
+class ToType() {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     var id: String? = null
@@ -16,4 +16,8 @@ class ToType {
     var bankAccount: BankAccount?=null;
     @ManyToOne
     var businessAccount:BusinessAccount?=null;
+
+    constructor(payAccount: PayAccount?):this() {
+        this.payAccount = payAccount
+    }
 }
