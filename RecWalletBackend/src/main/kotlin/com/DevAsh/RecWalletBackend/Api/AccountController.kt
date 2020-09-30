@@ -63,7 +63,9 @@ class AccountController(private final var accountService: AccountService) {
     @GetMapping("/protected/pay/getMyAccount")
     fun getMyAccount(response: HttpServletResponse, request: HttpServletRequest): AccountDetailsResponse {
         val header = request.getHeader("token")
-        return AccountDetailsResponse.fromPayAccount(accountService.getMyAccount(getId(header))!!, header)
+        val accountDetailsResponse = AccountDetailsResponse.fromPayAccount(accountService.getMyAccount(getId(header))!!, header)
+        println(accountDetailsResponse)
+        return accountDetailsResponse
     }
 
     fun getId(header: String): String {

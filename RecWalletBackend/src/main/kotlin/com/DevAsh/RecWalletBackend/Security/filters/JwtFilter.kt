@@ -24,10 +24,13 @@ class JwtFilter(
         val header = request?.getHeader("token")
         println("filtering ...$header")
         if (header == null) {
+            println("Blocked....")
             response?.status = HttpServletResponse.SC_UNAUTHORIZED
         } else if (!checkJwt(header)) {
+            println("Blocked....")
             response?.status = HttpServletResponse.SC_UNAUTHORIZED
         } else {
+            println("Allowed....")
             super.doFilter(request, response, chain)
         }
     }
