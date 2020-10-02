@@ -25,6 +25,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .disable()
                 .csrf()
                 .disable()
+                .cors()
+                .disable()
                 .antMatcher("/**/protected/**")
                 .addFilterBefore(JwtFilter(secretKey,accountDao), BasicAuthenticationFilter::class.java)
     }
