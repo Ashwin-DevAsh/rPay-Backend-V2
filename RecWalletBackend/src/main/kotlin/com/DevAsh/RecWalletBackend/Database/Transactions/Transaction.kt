@@ -30,6 +30,9 @@ class Transaction {
     var message:String?=null;
 
 
+    override fun toString(): String {
+        return "Transaction(id=$id, from=$from, to=$to, amount=$amount, timestamp=$timestamp, message=$message)"
+    }
 
 
 }

@@ -62,6 +62,7 @@ class AccountDetailsResponse (
                     .setParameter("id",payAccount.id)
                     .resultList
 
+            println("transactions = $transactions")
 
             return AccountDetailsResponse(
                     name = payAccount.userName,
