@@ -15,7 +15,9 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
     var entityManager: EntityManager = entityManagerFactory.createEntityManager()
 
     override fun isPayAccountExist(id: String): PayAccount? {
-        return entityManager.find(PayAccount::class.java,id)
+        val payAccount = entityManager.find(PayAccount::class.java,id)
+        println("PayAccountExist = $payAccount")
+        return payAccount
     }
 
     override fun isBusinessAccountExist(id: String): BusinessAccount? {
@@ -51,6 +53,8 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
     }
 
     override fun getPayAccounts(): List<PayAccount> {
-        return entityManager.createNamedQuery("getPayAccounts",PayAccount::class.java).resultList
+        val payAccounts = entityManager.createNamedQuery("getPayAccounts",PayAccount::class.java).resultList
+        println(payAccounts)
+        return payAccounts
     }
 }
