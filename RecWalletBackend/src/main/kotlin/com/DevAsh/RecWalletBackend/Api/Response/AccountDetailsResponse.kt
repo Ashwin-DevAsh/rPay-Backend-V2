@@ -56,13 +56,13 @@ class AccountDetailsResponse (
         fun fromPayAccount(payAccount: PayAccount,jwtToken: String?):AccountDetailsResponse{
 
 
-            val entityManager = RecWalletBackendApplication.entityManagerFactory?.createEntityManager()
-            val transactions = entityManager!!
-                    .createNamedQuery("getTransactionsByUserID",Transaction::class.java)
-                    .setParameter("id",payAccount.id)
-                    .resultList
+//            val entityManager = RecWalletBackendApplication.entityManagerFactory?.createEntityManager()
+//            val transactions = entityManager!!
+//                    .createNamedQuery("getTransactionsByUserID",Transaction::class.java)
+//                    .setParameter("id",payAccount.id)
+//                    .resultList
 
-            println("transactions = $transactions")
+//            println("transactions = $transactions")
 
             return AccountDetailsResponse(
                     name = payAccount.userName,
@@ -76,7 +76,7 @@ class AccountDetailsResponse (
                     jwtToken = jwtToken,
                     fcmToken = null,
                     bankAccount = payAccount.bankAccountList,
-                    transaction = transactions
+                    transaction = ArrayList()
             )
         }
     }
