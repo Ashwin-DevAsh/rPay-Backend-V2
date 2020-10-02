@@ -7,7 +7,7 @@ import javax.persistence.*
 @Entity
 @NamedQuery(
         name = "getTransactionsByUserID",
-        query = "select t from Transaction t where (t.from.payAccount.id=:id or t.to.payAccount.id=:id) and t.message is Null"
+        query = "select t from Transaction t where (t.from.payAccount.id=:id or t.to.payAccount.id=:id) and t.amount is not Null"
 )
 class Transaction {
     constructor()
