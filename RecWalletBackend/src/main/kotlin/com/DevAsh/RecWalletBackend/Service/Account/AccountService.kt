@@ -37,7 +37,9 @@ class AccountService(
         return try {
             if(otpDao.isVerified(payAccount.id!!)){
                 otpDao.deleteOtp(payAccount.id!!)
-                accountDao.addNewPayAccount(payAccount)
+                if(!accountDao.addNewPayAccount(payAccount)){
+                    false
+                }
                 true
             }else{
                 false
