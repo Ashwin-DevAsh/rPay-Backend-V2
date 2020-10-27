@@ -29,11 +29,11 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
             entityManager.transaction.begin()
             entityManager.persist(payAccount)
             entityManager.transaction.commit()
-            false
+            true
         }catch (e:Throwable){
             e.printStackTrace()
             entityManager.transaction.rollback()
-            true
+            false
         }
 
     }
@@ -43,11 +43,11 @@ class AccountDatabase(private val entityManagerFactory: EntityManagerFactory) : 
             entityManager.transaction.begin()
             entityManager.persist(businessAccount)
             entityManager.transaction.commit()
-            false
+            true
         }catch (e:Throwable){
             e.printStackTrace()
             entityManager.transaction.rollback()
-            true
+            false
         }
 
     }
