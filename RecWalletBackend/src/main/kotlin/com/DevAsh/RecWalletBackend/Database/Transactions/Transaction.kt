@@ -1,6 +1,5 @@
 package com.DevAsh.RecWalletBackend.Database.Transactions
 
-import jdk.jfr.DataAmount
 import java.sql.Timestamp
 import javax.persistence.*
 

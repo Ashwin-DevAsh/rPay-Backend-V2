@@ -6,7 +6,6 @@ import com.DevAsh.RecWalletBackend.Database.Transactions.FromType
 import com.DevAsh.RecWalletBackend.Database.Transactions.ToType
 import com.DevAsh.RecWalletBackend.Database.Transactions.Transaction
 import com.DevAsh.RecWalletBackend.Database.Transactions.Types.ExternalSource
-import jdk.jfr.DataAmount
 import javax.persistence.Id
 
 
