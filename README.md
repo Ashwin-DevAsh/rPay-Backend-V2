@@ -35,3 +35,11 @@ To get started with rPay-Backend-v2, follow these steps:
 
 3. **Data Management:**
    - Leverage JPA repository for efficient management of data entities.
+  
+## Dependency Repositories
+
+- [rPay](https://github.com/Ashwin-DevAsh/rPay): An application for students to pay and make transactions.
+- [rPay-Backend](https://github.com/Ashwin-DevAsh/rPay-Backend): Microservice handling backend functionality.
+- [rPay-Business](https://github.com/Ashwin-DevAsh/rPay-Business): A vendor application for accepting money from students.
+- [rPay-Admin](https://github.com/Ashwin-DevAsh/rPay-Admin): An admin console for managing users and transactions.
+
